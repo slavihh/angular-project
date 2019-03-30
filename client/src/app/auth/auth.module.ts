@@ -14,7 +14,8 @@ import { RegisterComponent } from './register/register.component';
     ReactiveFormsModule
   ],
   exports: [
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ]
 })
 export class AuthModule { }

@@ -1,11 +1,37 @@
-<form class="example-form">
+
+<mat-card class="login-container" >
+    <h1 class="loginLabel"> LOGIN </h1>
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="form" >
+    
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Email" [formControl]="emailFormControl">
-        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-        Please enter a valid email address
-      </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError('required')">
+      <input #emailIdSpy matInput name="emailId" placeholder="Email" type="email" required [(ngModel)]="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+       #emailId="ngModel">
+       <mat-icon matSuffix>email</mat-icon>
+       <mat-error *ngIf="!emailId.valid && emailId?.errors.required">
         Email is <strong>required</strong>
       </mat-error>
+      <mat-error *ngIf="!emailId.valid && emailId?.errors.pattern">
+        Entered Email Did not match the pattern of type user@abc.com
+      </mat-error>
+      <BR />
     </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input #passwordSpy matInput name="password" placeholder="Password" type="password" required [(ngModel)]="password" #passwordRef="ngModel"
+         minlength="8"  />
+       <mat-icon matSuffix>vpn_key</mat-icon>
+        <mat-error *ngIf="!passwordRef.valid && passwordRef?.errors.required">
+          Password is <strong>required</strong>
+        </mat-error>
+      
+        <mat-error *ngIf="!passwordRef.valid && passwordRef?.errors.minlength">
+          Minimum 8 Characters required
+        </mat-error>
+      </mat-form-field>
+    <BR />
+    <BR />
+    <BR/>
+    <div style="text-align:center;">
+    <button  mat-raised-button color="primary" [disabled]="!registerForm.valid"  type="submit">Login</button>
+    </div>
   </form>
+</mat-card>

@@ -4,15 +4,38 @@
 </mat-toolbar>
 <mat-sidenav-container class="example-container" autosize>
   <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true">
-    <mat-nav-list>
-      <a *ngFor="let link of links" routerLink="{{link.path}}">
+    <mat-nav-list *ngIf="!loggedIn">
+      <a *ngFor="let link of guestLinks" routerLink="{{link.path}}">
         <mat-list-item class="parent drawer">
           <span class="full-width" *ngIf="isExpanded || isShowing">{{link.title}}</span>
           <mat-icon mat-list-icon>{{link.icon}}</mat-icon>
       </mat-list-item>
       </a>
     </mat-nav-list>
-    <mat-nav-list> </mat-nav-list>
+    <mat-nav-list *ngIf="loggedIn && role===1"> 
+      <a *ngFor="let link of userLinks" routerLink="{{link.path}}">
+        <mat-list-item class="parent drawer">
+          <span class="full-width" *ngIf="isExpanded || isShowing">{{link.title}}</span>
+          <mat-icon mat-list-icon>{{link.icon}}</mat-icon>
+      </mat-list-item>
+      </a>
+        <mat-list-item class="parent drawer" (click)="logout()">
+          <span class="full-width" *ngIf="isExpanded || isShowing">Logout</span>
+          <mat-icon mat-list-icon>exit_to_app</mat-icon>
+      </mat-list-item>
+    </mat-nav-list>
+    <mat-nav-list *ngIf="loggedIn && role===2"> 
+      <a *ngFor="let link of adminLinks" routerLink="{{link.path}}">
+        <mat-list-item class="parent drawer">
+          <span class="full-width" *ngIf="isExpanded || isShowing">{{link.title}}</span>
+          <mat-icon mat-list-icon>{{link.icon}}</mat-icon>
+      </mat-list-item>
+      </a>
+        <mat-list-item class="parent drawer" (click)="logout()">
+          <span class="full-width" *ngIf="isExpanded || isShowing">Logout</span>
+          <mat-icon mat-list-icon>exit_to_app</mat-icon>
+      </mat-list-item>
+    </mat-nav-list>
   </mat-sidenav>
 
   <div class="example-sidenav-content">

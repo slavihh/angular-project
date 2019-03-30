@@ -1,0 +1,23 @@
+.registerLabel {
+  text-align: center
+}
+
+.form-input {
+  width: 100%;
+}
+
+.register-container {
+  width: 100vh;
+  padding: 40px;
+  align-items: center;
+  justify-content: center
+}
+
+.form {
+  justify-content: center;
+  align-items: center;
+}
+
+.example-full-width {
+  width: 100vh;
+}
