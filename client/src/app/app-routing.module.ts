@@ -4,9 +4,12 @@ import {RegisterComponent} from './auth/register/register.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { JwtGuard } from './guards/jwt.guard';
+
+// JWT guard works
 const routes: Routes = [
   {path: '', component: HomeComponent, },
-  {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
+  {path: 'login', canActivate: [AuthGuard], component: LoginComponent},
   {path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
 ];
 

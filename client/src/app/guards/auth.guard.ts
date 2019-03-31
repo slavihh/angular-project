@@ -13,19 +13,18 @@ import { IAppState } from "../store";
 })
 export class AuthGuard implements CanActivate {
   private loggedIn: boolean;
-  contructor(ngRedux: NgRedux<IAppState>) {
+  constructor(public ngRedux: NgRedux<IAppState>, private router: Router) {
     this.loggedIn = ngRedux.getState().auth.loggedIn;
   }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    return this.checkIfLogged();
-  }
-  checkIfLogged(): boolean {
-    if (!this.loggedIn) {
-      return true;
+    if(this.loggedIn) {
+      this.router.navigate(['']);
+      return false;
     }
-    return false;
+    return true;
   }
+
 }
