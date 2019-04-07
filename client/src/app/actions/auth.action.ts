@@ -64,14 +64,16 @@ export class AuthAction {
   }
   login(email: string, password: string) {
     this.auth("login", email, password).subscribe(data => {
-      this.router.navigate([""]);
+      location.reload();
+      this.router.navigate(['']);
       this.storeAuthInfo(data.authToken, data.user);
     });
   }
 
   register(email: string, password: string) {
     this.auth("register", email, password).subscribe(data => {
-      this.router.navigate([""]);
+      location.reload();
+      this.router.navigate(['']);
       this.storeAuthInfo(data.authToken, data.user);
     });
   }

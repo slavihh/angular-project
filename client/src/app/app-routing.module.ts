@@ -8,7 +8,7 @@ import { JwtGuard } from './guards/jwt.guard';
 
 // JWT guard works
 const routes: Routes = [
-  {path: '', component: HomeComponent, },
+  {path: '', component: HomeComponent, canActivate: [JwtGuard]},
   {path: 'login', canActivate: [AuthGuard], component: LoginComponent},
   {path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
 ];

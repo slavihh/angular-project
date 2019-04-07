@@ -10,4 +10,7 @@ export class LocalStorage {
     saveUser(user) {
         localStorage.setItem('user', JSON.stringify(user));
     }
+    clear() {
+        localStorage.clear();
+    }
 }
