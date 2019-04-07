@@ -1,20 +1,33 @@
-import { Component, ViewChild } from "@angular/core";
-import { MatSidenav } from "@angular/material";
-import { NgRedux } from "@angular-redux/store";
-import { IAppState } from "src/app/store";
+import {
+  Component,
+  ViewChild,
+  OnInit,
+  EventEmitter,
+  Output
+} from "@angular/core";
+import {
+  MatSidenav
+} from "@angular/material";
+import {
+  NgRedux
+} from "@angular-redux/store";
+import {
+  IAppState
+} from "src/app/store";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "app-navigation",
   templateUrl: "navigation.component.html",
   styleUrls: ["navigation.component.css"]
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit{
   @ViewChild("sidenav") sidenav: MatSidenav;
+  @Output() updateView = new EventEmitter();
   isExpanded = true;
   isShowing = false;
   title = "Markbook";
-  guestLinks = [
-    {
+  guestLinks = [{
       path: "",
       title: "Home",
       icon: "home"
@@ -30,8 +43,7 @@ export class NavigationComponent {
       icon: "person_add"
     }
   ];
-  userLinks = [
-    {
+  userLinks = [{
       path: '',
       title: 'Home',
       icon: 'home'
@@ -48,8 +60,7 @@ export class NavigationComponent {
     }
   ];
 
-  adminLinks = [
-    {
+  adminLinks = [{
       path: '',
       title: 'Home',
       icon: 'home'
@@ -68,18 +79,26 @@ export class NavigationComponent {
   auth;
   role;
   loggedIn;
-  constructor(public ngRedux: NgRedux<IAppState>) {
+
+  constructor(public ngRedux: NgRedux < IAppState > ) {
+  }
+  ngOnInit(): void {
     this.auth = this.ngRedux.getState().auth;
     this.role = this.auth.user !== null ? this.auth.user.role : '';
     this.loggedIn = this.auth.loggedIn;
+  }
+  refreshComponent() {
+    this.updateView.emit();
+    console.log('emitted');
   }
   toggle() {
     this.isExpanded = !this.isExpanded;
   }
 
   logout() {
-    window.location.reload();
-    localStorage.clear()
+    this.updateView.emit();
+    location.reload();
+    localStorage.clear();
   }
 }
 

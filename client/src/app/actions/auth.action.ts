@@ -28,6 +28,7 @@ import {
   providedIn: "root"
 })
 export class AuthAction {
+
   // tslint:disable-next-line:max-line-length
   constructor(
     private ngRedux: NgRedux < IAppState >,
@@ -40,6 +41,7 @@ export class AuthAction {
   public SET_USER = "SET_USER";
   public CLEAR_AUTH = 'CLEAR_AUTH'
   private API_BASE_URL = "http://localhost:4000";
+  @Output() updateView = new EventEmitter();
   
   setAuthToken(authToken) {
     this.ngRedux.dispatch({
@@ -64,16 +66,14 @@ export class AuthAction {
   }
   login(email: string, password: string) {
     this.auth("login", email, password).subscribe(data => {
-      location.reload();
-      this.router.navigate(['']);
-      this.storeAuthInfo(data.authToken, data.user);
+    location.reload();
+    this.storeAuthInfo(data.authToken, data.user);
     });
   }
 
   register(email: string, password: string) {
+    location.reload();
     this.auth("register", email, password).subscribe(data => {
-      location.reload();
-      this.router.navigate(['']);
       this.storeAuthInfo(data.authToken, data.user);
     });
   }
