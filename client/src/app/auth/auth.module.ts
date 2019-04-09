@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { AuthAction } from '../actions/auth.action';
+import { StoreAuthInfo } from '../services/auth.info.service';
+import { AuthService } from '../services/auth.service';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -18,6 +19,6 @@ import { AuthAction } from '../actions/auth.action';
     LoginComponent,
     RegisterComponent
   ],
-  providers: [AuthAction]
+  providers: [AuthService]
 })
 export class AuthModule { }

@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
-import { AuthAction } from 'src/app/actions/auth.action';
-import { NgRedux } from '@angular-redux/store';
-import { IAppState } from 'src/app/store';
+import { AuthService } from 'src/app/services/auth.service';
 const EMAIL_REGEX1 = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const EMAIL_REGEX = "[a-z]*";
 
@@ -12,11 +10,11 @@ const EMAIL_REGEX = "[a-z]*";
   styleUrls: ['login.component.css'],
 })
 export class LoginComponent {
-  constructor(private authAction: AuthAction, private ngRedux: NgRedux<IAppState>) { }
+  constructor(public authService: AuthService) { }
   title = 'app';
   email: string;
   password: string;
- public onSubmit(){
-   this.authAction.login(this.email, this.password);
+ public onSubmit() {
+   this.authService.login(this.email, this.password);
  }
 }

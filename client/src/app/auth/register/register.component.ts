@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
-import { AuthAction } from 'src/app/actions/auth.action';
+import { AuthService } from 'src/app/services/auth.service';
 const EMAIL_REGEX1 = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const EMAIL_REGEX = "[a-z]*";
 
@@ -10,11 +10,11 @@ const EMAIL_REGEX = "[a-z]*";
   styleUrls: ['register.component.css'],
 })
 export class RegisterComponent {
-  constructor(private authAction: AuthAction) { }
+  constructor(private authService: AuthService) { }
   title = 'app';
   email: string;
   password: string;
  public onSubmit(){
-   this.authAction.register(this.email, this.password);
+   this.authService.register(this.email, this.password);
  }
 }

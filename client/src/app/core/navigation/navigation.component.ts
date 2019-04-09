@@ -1,29 +1,26 @@
+import { LocalStorage } from './../../local-storage';
 import {
   Component,
   ViewChild,
   OnInit,
   EventEmitter,
-  Output
+  Output,
+  ChangeDetectionStrategy
 } from "@angular/core";
 import {
   MatSidenav
 } from "@angular/material";
-import {
-  NgRedux
-} from "@angular-redux/store";
-import {
-  IAppState
-} from "src/app/store";
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: "app-navigation",
   templateUrl: "navigation.component.html",
-  styleUrls: ["navigation.component.css"]
+  styleUrls: ["navigation.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavigationComponent implements OnInit{
+export class NavigationComponent{
   @ViewChild("sidenav") sidenav: MatSidenav;
-  @Output() updateView = new EventEmitter();
   isExpanded = true;
   isShowing = false;
   title = "Markbook";
@@ -80,15 +77,19 @@ export class NavigationComponent implements OnInit{
   role;
   loggedIn;
 
-  constructor(public ngRedux: NgRedux < IAppState > ) {
+  constructor( private local: LocalStorage, public store: Store<any>) {
   }
   ngOnInit(): void {
-    this.auth = this.ngRedux.getState().auth;
-    this.role = this.auth.user !== null ? this.auth.user.role : '';
-    this.loggedIn = this.auth.loggedIn;
+    this.local.watchStorage().subscribe(() => {
+    })
+    this.store.select((data) => {
+       this.auth = data
+    });
+    console.log(this.auth)
+    // this.role = this.auth.user !== null ? this.auth.user.role : '';
+    // this.loggedIn = this.auth.loggedIn;
   }
   refreshComponent() {
-    this.updateView.emit();
     console.log('emitted');
   }
   toggle() {
@@ -96,7 +97,6 @@ export class NavigationComponent implements OnInit{
   }
 
   logout() {
-    this.updateView.emit();
     location.reload();
     localStorage.clear();
   }
