@@ -1,7 +1,7 @@
 
 <mat-card class="login-container" >
     <h1 class="loginLabel"> LOGIN </h1>
-  <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="form" >
+  <form  #registerForm="ngForm" class="form" >
     
     <mat-form-field class="example-full-width">
       <input #emailIdSpy matInput name="emailId" placeholder="Email" type="email" required [(ngModel)]="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
@@ -31,7 +31,7 @@
     <BR />
     <BR/>
     <div style="text-align:center;">
-    <button  mat-raised-button color="primary" [disabled]="!registerForm.valid"  type="submit">Login</button>
+    <button  mat-raised-button color="primary" [disabled]="!registerForm.valid" (click)="onSubmit()" type="submit">Login</button>
     </div>
   </form>
 </mat-card>

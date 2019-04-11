@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { AuthService } from './services/auth.service';
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   imports: [
     BrowserModule,
@@ -18,6 +19,7 @@ import { AuthService } from './services/auth.service';
     AppRoutingModule,
     CoreModule,
     AuthModule,
+    SharedModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({ auth: authReducer}),
     HttpClientModule,

@@ -12,6 +12,9 @@ import {
 } from "@angular/material";
 import { Observable, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { AuthService } from 'src/app/services/auth.service';
+import { clearAuth } from 'src/app/actions/auth.action';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-navigation",
@@ -19,16 +22,12 @@ import { Store } from '@ngrx/store';
   styleUrls: ["navigation.component.css"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavigationComponent{
+export class NavigationComponent implements OnInit{
   @ViewChild("sidenav") sidenav: MatSidenav;
   isExpanded = true;
   isShowing = false;
   title = "Markbook";
-  guestLinks = [{
-      path: "",
-      title: "Home",
-      icon: "home"
-    },
+  guestLinks = [
     {
       path: "login",
       title: "Login",
@@ -40,65 +39,33 @@ export class NavigationComponent{
       icon: "person_add"
     }
   ];
-  userLinks = [{
-      path: '',
-      title: 'Home',
-      icon: 'home'
-    },
-    {
-      path: 'user/own/subject',
-      title: 'Subjects',
-      icon: 'school'
-    },
-    {
-      path: 'user/own/marks',
-      title: 'Marks',
-      icon: 'star_rate'
-    }
-  ];
 
-  adminLinks = [{
-      path: '',
-      title: 'Home',
-      icon: 'home'
-    },
-    {
-      path: 'user',
-      title: 'User',
-      icon: 'account_box'
-    },
-    {
-      path: 'subject',
-      title: 'Subject',
-      icon: 'school'
-    }
-  ]
   auth;
   role;
   loggedIn;
 
-  constructor( private local: LocalStorage, public store: Store<any>) {
+  constructor( private local: LocalStorage, public store: Store<any>,public authService: AuthService, public router: Router) {
+    this.authService.isUserLoggedIn.subscribe(value => {
+      this.loggedIn = value;
+    })
   }
   ngOnInit(): void {
     this.local.watchStorage().subscribe(() => {
     })
-    this.store.select((data) => {
-       this.auth = data
+    this.store.select('auth').subscribe((data) => {
+       this.auth = data;
     });
-    console.log(this.auth)
-    // this.role = this.auth.user !== null ? this.auth.user.role : '';
-    // this.loggedIn = this.auth.loggedIn;
-  }
-  refreshComponent() {
-    console.log('emitted');
+    this.role = this.auth.user.role;
   }
   toggle() {
     this.isExpanded = !this.isExpanded;
   }
 
   logout() {
-    location.reload();
     localStorage.clear();
+    window.location.reload();
+    this.store.dispatch(clearAuth());
+    this.router.navigate(['']);
   }
 }
 

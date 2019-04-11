@@ -1,0 +1,29 @@
+.example-container {
+    height: 100vh;
+    background-color: #c5cbe3
+  
+  }
+  .example-sidenav-content {
+    display: flex;
+    height: 100%;
+    margin-top: 100px;
+    justify-content: center;
+  }
+  .example-sidenav {
+    user-select: none;
+  }
+  .full-width {
+    width: 150px;
+    
+  }
+  .menu-button {
+    transition: 300ms ease-in-out;
+    transform: rotate(0deg);
+  }
+  .menu-button.rotated {
+    transform: rotate(180deg);
+  }
+  
+  .drawer {
+    align-items: center;
+  }

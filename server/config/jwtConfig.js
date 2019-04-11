@@ -5,6 +5,6 @@ module.exports = {
     },
     refreshToken: {
         secret: 'x5MhXQlr3rTJdf9dfjKymuv1wJpCY7bh',
-        exp: 60
+        exp: 2592000
     }
 };

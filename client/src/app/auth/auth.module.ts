@@ -6,13 +6,14 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { StoreAuthInfo } from '../services/auth.info.service';
 import { AuthService } from '../services/auth.service';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     SharedModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule
   ],
   exports: [

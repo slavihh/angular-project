@@ -1,11 +1,11 @@
 .example-container {
   height: 100vh;
-  background-color: #c5cbe3
+  overflow: auto;
+  background-color: #c5cbe3;
 
 }
 .example-sidenav-content {
   display: flex;
-  height: 100%;
   margin-top: 100px;
   justify-content: center;
 }

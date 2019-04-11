@@ -1,0 +1,12 @@
+.container {
+    width: 700px;
+}
+.mat-typography{
+    text-align: center;
+    color: #0074D9;
+}
+
+.add {
+    justify-content: center
+}
+
