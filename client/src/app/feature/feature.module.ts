@@ -7,8 +7,9 @@ import { RouterModule } from '@angular/router';
 import { CreateSubjectComponent } from './admin/admin-subject/create-subject/create-subject.component';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditSubjectComponent } from './admin/admin-subject/edit-subject/edit-subject.component';
 @NgModule({
-  declarations: [AdminUserComponent, AdminSubjectComponent, CreateSubjectComponent],
+  declarations: [AdminUserComponent, AdminSubjectComponent, CreateSubjectComponent, EditSubjectComponent],
   imports: [
     CommonModule,
     SharedModule,

@@ -3,6 +3,7 @@ import { SubjectService } from 'src/app/services/subject.service';
 import { ToastrService } from 'ngx-toastr';
 import { error } from '@angular/compiler/src/util';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-create-subject',
@@ -10,19 +11,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-subject.component.css']
 })
 export class CreateSubjectComponent implements OnInit {
-  title: string;
+  name: string;
   constructor(private subjectService: SubjectService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
   }
   onSubmit() {
-    this.subjectService.create(this.title).subscribe(res  => {
-      this.router.navigate(['']);
-      this.toastr.success(res.msg);
+    return this.subjectService.createReq(this.name).subscribe(data => {
+      this.toastr.success(data.msg);
+      this.router.navigate(['admin/subject']);
     },
     err => {
-        this.toastr.error(err.error.msg)
-      }
-    );
+      this.toastr.error(err.error.msg);
+    }
+    )
   }
 }

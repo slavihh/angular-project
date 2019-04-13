@@ -23,7 +23,6 @@ export class JwtGuard implements CanActivate {
       this.loggedIn = this.auth ? this.auth.loggedIn : '';
       this.exp = this.auth.authToken !== null ? this.auth.authToken.exp : '';
       this.refExp = this.auth.authToken !== null ? this.auth.authToken.refreshExp : '';
-      console.log(this.auth)
       const now = Math.floor(new Date().getTime() / 1000);
       if (this.loggedIn && (now > this.exp || now > this.refExp) ) {
         this.local.clear();
