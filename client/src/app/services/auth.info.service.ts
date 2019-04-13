@@ -1,6 +1,6 @@
-import { LocalStorage } from '../local-storage';
+import { LocalStorage } from '../core/local-storage';
 import { Store } from '@ngrx/store';
-import { setToken, setUser } from '../actions/auth.action';
+import { SetToken, SetUser } from '../+store/actions/auth.action';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
@@ -12,9 +12,9 @@ export class StoreAuthInfo {
     }
 
     save(authToken, user) {
-      this.store.dispatch(setToken(authToken));
+      this.store.dispatch(new SetToken(authToken));
       this.local.saveAuthToken(authToken);
-      this.store.dispatch(setUser(user));
+      this.store.dispatch(new SetUser(user));
       this.local.saveUser(user);
 
     }

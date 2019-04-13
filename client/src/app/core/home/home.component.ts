@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/services/auth.service';
+import { getIsAuth } from 'src/app/+store';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +9,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  isUserLoggedIn: boolean;
+  isUserLoggedIn;
   constructor(public store: Store<any>, public authService: AuthService) { 
-    this.authService.isUserLoggedIn.subscribe(value => {
-      this.isUserLoggedIn = value;
-    })
+    this.isUserLoggedIn = store.select(getIsAuth);
    }
 
   ngOnInit() {

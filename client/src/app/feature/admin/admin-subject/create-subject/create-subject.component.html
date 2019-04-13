@@ -1,0 +1,17 @@
+
+<mat-card class="container" >
+    <h1 class="label"> CREATE NEW SUBJECT </h1>
+    <form (ngSubmit)="onSubmit()" #subjectForm="ngForm" class="form">
+    <mat-form-field class="example-full-width">
+      <input matInput name="subjectId" placeholder="Subject name" type="text" required ngModel #subjectId="ngModel"/>
+       <mat-icon matSuffix>email</mat-icon>
+       <mat-error *ngIf="!subjectId.valid && subjectId?.errors.required">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br/>
+    <div style="text-align:center;">
+        <button  mat-raised-button color="primary" [disabled]="!subjectForm.valid" (click)="onSubmit()" type="submit">Create</button>
+      </div>
+  </form>
+</mat-card>

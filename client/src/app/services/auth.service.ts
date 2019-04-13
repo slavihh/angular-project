@@ -6,6 +6,7 @@ import { IAuth } from '../models/IAuth';
 import { StoreAuthInfo } from './auth.info.service';
 import { LoginComponent } from '../auth/login/login.component';
 import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AuthService {
@@ -13,13 +14,13 @@ export class AuthService {
     private stateAuth;
     private loggedIn: boolean;
     public isUserLoggedIn: BehaviorSubject<boolean>;
-    constructor(public storeAuthInfo: StoreAuthInfo, public router: Router, public http: HttpClient, public store: Store<any>) {
+    constructor(public storeAuthInfo: StoreAuthInfo, public router: Router, public http: HttpClient, public store: Store<any>, 
+                public toastr: ToastrService) {
       store.select('auth').subscribe(data => {
         this.stateAuth = data;
       });
       this.isUserLoggedIn = new BehaviorSubject<boolean>(this.stateAuth.loggedIn);
     }
-    
     auth(type: string, email: string, password: string): Observable < IAuth > {
       const body = {
         email,
@@ -27,24 +28,21 @@ export class AuthService {
       };
       const httpOptions = {
         headers: new HttpHeaders({
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         })
       };
       const url = `${this.API_BASE_URL}/auth/${type}`;
-      return this.http.post < IAuth > (url, JSON.stringify(body), httpOptions)
+      return this.http.post < IAuth > (url, JSON.stringify(body), httpOptions);
     }
-  
     login(email: string, password: string) {
-      this.auth("login", email, password).subscribe(data => {
-        location.reload();
-        this.storeAuthInfo.save(data.authToken, data.user);
+      this.auth('login', email, password).subscribe(data => {
         this.router.navigate(['']);
-
-      });
+        this.toastr.success('Successfully logged')
+        this.storeAuthInfo.save(data.authToken, data.user);
+      }, err => this.toastr.error(err.error.message, 'Something went wrong'));
     }
     register(email: string, password: string) {
-      this.auth("register", email, password).subscribe(data => {
-        location.reload();
+      this.auth('register', email, password).subscribe(data => {
         this.storeAuthInfo.save(data.authToken, data.user);
         this.router.navigate(['']);
       });

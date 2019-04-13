@@ -10,20 +10,21 @@ const initialState = ((user && authToken)) ? {
     authToken: null,
     rememberMe: null
 };
+
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_AUTH_TOKEN':
+        case '[AUTH] SET_AUTH_TOKEN':
             return {
                 ...state,
                 authToken: action.payload
             }
 
-        case 'SET_USER':
+        case '[AUTH] SET_USER':
             return {
                 ...state,
                 user: action.payload
             }
-        case 'CLEAR_AUTH':
+        case '[AUTH] CLEAR_AUTH':
             return {
                 ...state,
                 loggedIn: false,

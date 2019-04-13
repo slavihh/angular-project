@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { FeatureModule } from '../feature/feature.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [NavigationComponent, HomeComponent],
@@ -14,7 +15,8 @@ import { FeatureModule } from '../feature/feature.module';
     SharedModule,
     AppRoutingModule,
     RouterModule,
-    FeatureModule
+    FeatureModule,
+    ToastrModule.forRoot()
   ],
   exports: [
     NavigationComponent

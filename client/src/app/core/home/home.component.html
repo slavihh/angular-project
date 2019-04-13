@@ -1,6 +1,6 @@
-<mat-card *ngIf="!isUserLoggedIn" class="guest-container">
+<mat-card *ngIf="!(isUserLoggedIn | async)" class="guest-container">
   The main purpose of this app is a school markbook with different subjects and assessments according to the students. We have one Administrator profile that can add marks, simple subjects, or subjects already created to given students. Marks can be added to students and subject who already have this subject. Any school subject can be deleted or edited by the administrator. Ordinary users (students) can only see their subjects and marks. Guests must be logged in to use the application.
 </mat-card>
-<mat-card *ngIf="isUserLoggedIn">
+<mat-card *ngIf="(isUserLoggedIn | async)">
   Yey you are logged!
 </mat-card>

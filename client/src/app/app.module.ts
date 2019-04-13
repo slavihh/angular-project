@@ -1,4 +1,4 @@
-import { authReducer } from './reducers/auth.reducer';
+import { authReducer } from './+store/reducers/auth.reducer';
 import { AuthModule } from "./auth/auth.module";
 import { CoreModule } from "./core/core.module";
 import { AppRoutingModule } from "./app-routing.module";

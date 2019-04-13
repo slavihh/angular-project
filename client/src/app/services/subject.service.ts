@@ -21,7 +21,17 @@ export class SubjectService {
         'Authorization': `JWT ${this.authToken.token}`
       })
     }
-    const req = this.http.get(`${this.API_BASE_URL}/subject/all`, httpOptions);
-    return req;
+    return this.http.get(`${this.API_BASE_URL}/subject/all`, httpOptions);
+  }
+
+  create(name) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `JWT ${this.authToken.token}`,
+      })
+    };
+    return this.http.post<object>(`${this.API_BASE_URL}/subject/create`,JSON.stringify({name}), httpOptions)
+
   }
 }

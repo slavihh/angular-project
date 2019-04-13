@@ -1,9 +1,7 @@
 import {Component, OnInit, Input, ChangeDetectionStrategy} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { StoreAuthInfo } from 'src/app/services/auth.info.service';
-import { HttpClient } from '@angular/common/http';
 const EMAIL_REGEX1 = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const EMAIL_REGEX = "[a-z]*";
 

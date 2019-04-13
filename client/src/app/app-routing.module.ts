@@ -8,6 +8,7 @@ import { JwtGuard } from './guards/jwt.guard';
 import { AdminUserComponent } from './feature/admin/admin-user/admin-user.component';
 import { AdminSubjectComponent } from './feature/admin/admin-subject/admin-subject.component';
 import { RoleGuard } from './guards/role.guard';
+import { CreateSubjectComponent } from './feature/admin/admin-subject/create-subject/create-subject.component';
 
 // JWT guard works
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'register', canActivate: [AuthGuard], component: RegisterComponent},
   {path: 'admin/user', component: AdminUserComponent, canActivate: [RoleGuard]},
   {path: 'admin/subject', component: AdminSubjectComponent, canActivate: [RoleGuard]},
+  {path: 'admin/subject/create', component: CreateSubjectComponent, canActivate: [RoleGuard]},
   {path: '**', redirectTo: '/'}
 ];
 
