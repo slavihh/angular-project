@@ -5,75 +5,81 @@ const UserSubjectMark = models.UserSubjectMark;
 const HttpStatusCodes = require('http-status-codes');
 class SubjectService {
 
-    create(req,res) {
-        let {name} = req.body;
+    create(req, res) {
+        let { name } = req.body;
         Subject.findOne(
-            {where: {name}}
+            { where: { name } }
         ).then(subject => {
-            if(subject != null) {
-                res.status(HttpStatusCodes.BAD_REQUEST).json({msg: 'Subject already exists',});
+            if (subject != null) {
+                res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: 'Subject already exists', });
             }
             else {
-                Subject.create({name}).then((newSubject) => {
-                    
-                    res.status(HttpStatusCodes.CREATED).json({msg: "Successfully created subject"});
+                Subject.create({ name }).then((newSubject) => {
+
+                    res.status(HttpStatusCodes.CREATED).json({ msg: "Successfully created subject" });
                 }).catch(err => {
-                    res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({msg: "Something went wrong"});
+                    res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ msg: "Something went wrong" });
                 })
             }
         })
-        
+
     }
-    getAll(req,res) {
+    getAll(req, res) {
         Subject.findAll({
-            attributes: ['id','name']
+            attributes: ['id', 'name']
         }).then(subjects => {
             res.status(HttpStatusCodes.OK).json(subjects)
-        } ).catch(err => {
-            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({msg: 'Something went wrong'});
+        }).catch(err => {
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ msg: 'Something went wrong' });
         })
     }
+    /* jshint ignore:start */
+    async delete(req, res) {
+        const { subjectName } = req.query;
+        const subject = await Subject.findOne({ where: { name: subjectName } })
+        if (subject !== null) {
+            await UserSubject.destroy({
+                where: {
+                    SubjectId: subject.id
+                }
+            }).catch(() => {
+                res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: 'Something went wrong' })
+            })
+            await UserSubjectMark.destroy({
+                where: {
+                    SubjectId: subject.id
+                }
+            }).catch(() => {
+                res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: 'Something went wrong' })
+            })
 
-    async delete(req,res) {
-        const {subjectName} = req.body;
-        const subject = await Subject.findOne({where: {name: subjectName}})
-        await UserSubject.destroy({
-            where: {
-                SubjectId: subject.id
-            }
-        }).catch(() => {
-            res.status(HttpStatusCodes.BAD_REQUEST).json({msg: 'Something went wrong'})
-        })
-        await UserSubjectMark.destroy({
-            where: {
-                SubjectId: subject.id
-            }
-        }).catch(() => {
-            res.status(HttpStatusCodes.BAD_REQUEST).json({msg: 'Something went wrong'})
-        })
-        
-        await Subject.destroy({
-            where: {
-                name: subjectName
-            }
-        }).then(() => {
-            res.status(HttpStatusCodes.OK).json({msg: 'Successfully deleted subject'})
-        }).catch(() => {
-            res.status(HttpStatusCodes.BAD_REQUEST).json({msg: 'Something went wrong'})
-        })
+            await Subject.destroy({
+                where: {
+                    name: subjectName
+                }
+            }).then(() => {
+                res.status(HttpStatusCodes.OK).json({ msg: 'Successfully deleted subject' })
+            }).catch(() => {
+                res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: 'Something went wrong' })
+            })
+        }
+        else {
+            res.status(HttpStatusCodes.NOT_FOUND).json({ msg: 'Subject not found' });
+        }
     }
 
-    edit(req,res) {
-        const {subjectName, newName} = req.body
+    /* jshint ignore:end */
+    edit(req, res) {
+        const { subjectName, newName } = req.body
         Subject.findOne({
             where: {
                 name: subjectName
             }
         }).then(subject => {
             subject.name = newName;
-            subject.save().then(() => res.status(HttpStatusCodes.OK).json({msg: 'Successfully updated subject'})).catch(() => res.status(HttpStatusCodes.BAD_REQUEST).json({msg: 'Something went wrong'}));
+            subject.save().then(() => res.status(HttpStatusCodes.OK).json({ msg: 'Successfully updated subject' })).catch(() => res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: 'Something went wrong' }));
         }).catch(() => {
-            res.status(HttpStatusCodes.BAD_REQUEST).json({msg: 'Something went wrong'})
+            res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: 'Something went wrong' })
         })
     }
 

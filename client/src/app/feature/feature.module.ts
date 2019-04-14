@@ -8,6 +8,7 @@ import { CreateSubjectComponent } from './admin/admin-subject/create-subject/cre
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditSubjectComponent } from './admin/admin-subject/edit-subject/edit-subject.component';
+import { SubjectResolver } from './admin/admin-subject/subject.resolver';
 @NgModule({
   declarations: [AdminUserComponent, AdminSubjectComponent, CreateSubjectComponent, EditSubjectComponent],
   imports: [
@@ -21,6 +22,7 @@ import { EditSubjectComponent } from './admin/admin-subject/edit-subject/edit-su
   exports: [
     AdminUserComponent,
     AdminSubjectComponent
-  ]
+  ],
+  providers: [SubjectResolver]
 })
 export class FeatureModule { }

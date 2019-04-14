@@ -4,31 +4,28 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-
 @Injectable({
   providedIn: 'root'
 })
 export class SubjectService {
   public authToken;
   public API_BASE_URL = 'http://localhost:4000';
-  
   constructor(public http: HttpClient, public store: Store<any>, private toastr: ToastrService, private router: Router) { 
     this.store.select('auth').subscribe(data => {
       this.authToken = data.authToken;
-    })
+    });
    }
 
-  getAllSubjects(): Observable<any> {
+  getAllSubjects() {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `JWT ${this.authToken.token}`
       })
-    }
-    return this.http.get(`${this.API_BASE_URL}/subject/all`, httpOptions);
+    };
+    return this.http.get(`${this.API_BASE_URL}/subject/all`, httpOptions)
   }
 
   createReq(name: string) {
-
     const body = {
       name
     };
@@ -41,7 +38,18 @@ export class SubjectService {
     };
     return this.postReq(body, '/subject/edit');
   }
-
+  delete(subjectName): Observable<{msg: string}> {
+    const body = {
+      subjectName
+    };
+    const httpOptions = {
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `JWT ${this.authToken.token}`,
+      })
+    };
+    return this.http.delete<{msg: string}>(`${this.API_BASE_URL}/subject/delete?subjectName=${subjectName}`, httpOptions);
+  }
   postReq(body, url): Observable<{msg: string}> {
     const httpOptions = {
       headers: new HttpHeaders({

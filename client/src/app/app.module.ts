@@ -12,6 +12,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { AuthService } from './services/auth.service';
 import { SharedModule } from './shared/shared.module';
+import { SubjectResolver } from './feature/admin/admin-subject/subject.resolver';
 @NgModule({
   imports: [
     BrowserModule,
@@ -25,7 +26,7 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     RouterModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, SubjectResolver],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
