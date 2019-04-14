@@ -1,3 +1,28 @@
-<p>
-  admin-user works!
-</p>
+<section class="mat-typography">
+    <h1 class="mat-display-2">USERS</h1>
+  </section>
+  <span class="flex-spacer"></span>
+  <br/>
+  <mat-table [dataSource]="users" class="mat-elevation-z8" class="container">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.email}} </mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="options" >
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div *ngIf="element.email !== user.userEmail">
+              <a [routerLink]="['/admin/user/marks', element.email]" style="text-decoration: none; margin: 0; color: black;" alt="Marks"><mat-icon>star_rate</mat-icon></a>
+              <a [routerLink]="['/admin/user/subjects', element.email]" style="text-decoration: none; color: black; padding: 5px;"><mat-icon>school</mat-icon></a>
+              <mat-icon style="cursor: pointer" (click)="delete(element.email)">close</mat-icon>
+          </div>
+        </mat-cell>
+      </ng-container>
+      
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <br>
+  
+  

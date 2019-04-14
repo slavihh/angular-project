@@ -11,7 +11,6 @@ import { Store } from '@ngrx/store';
 })
 export class AdminSubjectComponent  {
   subjects;
-  newSubjects;
   displayedColumns: string[] = ['name', 'options'];
   constructor(public subjectService: SubjectService, private toastr: ToastrService, private router: Router, private store: Store<any>, 
               private route: ActivatedRoute) {

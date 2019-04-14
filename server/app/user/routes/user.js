@@ -26,4 +26,9 @@ router.post('/add/subject/mark',authorization.isAuth, authorization.hasRole, (re
     user.addMarkToSubject(req,res)
 });
 
+//DELETE user
+router.delete('/delete', authorization.isAuth, authorization.hasRole, (req,res) => {
+    user.deleteUser(req,res);
+})
+
 module.exports = router;

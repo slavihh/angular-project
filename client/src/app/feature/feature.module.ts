@@ -9,8 +9,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditSubjectComponent } from './admin/admin-subject/edit-subject/edit-subject.component';
 import { SubjectResolver } from './admin/admin-subject/subject.resolver';
+import { UserResolver } from './admin/admin-user/user.resolver';
+import { AdminUserSubjectsComponent } from './admin/admin-user/admin-user-subjects/admin-user-subjects.component';
+import { UserSubjectResolver } from './admin/admin-user/admin-user-subjects/user.subject.resolver';
+import { CreateUserSubjectComponent } from './admin/admin-user/admin-user-subjects/create-user-subject/create-user-subject.component';
 @NgModule({
-  declarations: [AdminUserComponent, AdminSubjectComponent, CreateSubjectComponent, EditSubjectComponent],
+  declarations: [AdminUserComponent, AdminSubjectComponent, CreateSubjectComponent, EditSubjectComponent, AdminUserSubjectsComponent, CreateUserSubjectComponent,],
   imports: [
     CommonModule,
     SharedModule,
@@ -23,6 +27,6 @@ import { SubjectResolver } from './admin/admin-subject/subject.resolver';
     AdminUserComponent,
     AdminSubjectComponent
   ],
-  providers: [SubjectResolver]
+  providers: [SubjectResolver, UserResolver,UserSubjectResolver]
 })
 export class FeatureModule { }

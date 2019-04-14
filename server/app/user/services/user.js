@@ -8,6 +8,7 @@ const {
     UserSubjectMark
 } = models;
 const HttpStatusCodes = require('http-status-codes');
+const jwtDecode = require('jwt-decode');
 class UserService {
     async addUserSubject(req, res) {
         try {
@@ -141,12 +142,7 @@ class UserService {
                             msg: "User not found, please try again"
                         });
                     } else {
-                        data = {
-                            userId: userSubjects.id,
-                            email: userSubjects.email,
-                            subjects: userSubjects.Subjects
-                        }
-                        res.status(HttpStatusCodes.OK).json(data);
+                        res.status(HttpStatusCodes.OK).json(userSubjects.Subjects);
                     }
 
                 }).catch(err => {
@@ -223,6 +219,48 @@ class UserService {
                 msg: 'Something went wrong'
             });
         })
+    }
+    //TODO add deleteUserSubject
+    async deleteUser(req,res) {
+        const token = req.headers.authorization.split('JWT ').pop();
+        const decodedToken = jwtDecode(token);
+        const { email } = req.query;
+        const admin = await User.findOne({ where: { id: decodedToken.id }})
+        const user = await User.findOne({ where: { email } })
+        if (user !== null) {
+            if (admin.email !== email) {
+                await UserSubject.destroy({
+                    where: {
+                        UserId: user.id
+                    }
+                }).catch(() => {
+                    res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: 'Something went wrong' })
+                })
+                await UserSubjectMark.destroy({
+                    where: {
+                        UserId: user.id
+                    }
+                }).catch(() => {
+                    res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: 'Something went wrong' })
+                })
+    
+                await User.destroy({
+                    where: {
+                        email
+                    }
+                }).then(() => {
+                    res.status(HttpStatusCodes.OK).json({ msg: 'Successfully deleted user' })
+                }).catch(() => {
+                    res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: 'Something went wrong' })
+                }) 
+            }
+            else {
+                res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: "You can't delete yourself" })
+            } 
+        }
+        else {
+            res.status(HttpStatusCodes.NOT_FOUND).json({ msg: 'User not found' });
+        }
     }
 }
 

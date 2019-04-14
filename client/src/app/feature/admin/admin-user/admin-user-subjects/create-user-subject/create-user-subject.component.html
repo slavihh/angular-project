@@ -1,0 +1,18 @@
+
+<mat-card class="container" >
+    <h1 class="label"> ADD NEW USER-SUBJECT </h1>
+    <form (ngSubmit)="onSubmit()" #subjectForm="ngForm" class="form">
+    <mat-form-field class="example-full-width">
+      <select matNativeControl [(ngModel)] = "name" #subjectId="ngModel" name="subjectId" required>
+        <option *ngFor="let subject of subjects">{{subject.name}}</option>
+        </select>
+       <mat-error *ngIf="!subjectId.valid && subjectId?.errors.required">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br/>
+    <div style="text-align:center;">
+        <button  mat-raised-button color="primary" [disabled]="!subjectForm.valid"  type="submit">ADD</button>
+      </div>
+  </form>
+</mat-card>

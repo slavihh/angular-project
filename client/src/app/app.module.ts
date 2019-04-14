@@ -13,6 +13,8 @@ import { RouterModule } from "@angular/router";
 import { AuthService } from './services/auth.service';
 import { SharedModule } from './shared/shared.module';
 import { SubjectResolver } from './feature/admin/admin-subject/subject.resolver';
+import { UserResolver } from './feature/admin/admin-user/user.resolver';
+import { UserSubjectResolver } from './feature/admin/admin-user/admin-user-subjects/user.subject.resolver';
 @NgModule({
   imports: [
     BrowserModule,
@@ -26,7 +28,7 @@ import { SubjectResolver } from './feature/admin/admin-subject/subject.resolver'
     HttpClientModule,
     RouterModule
   ],
-  providers: [AuthService, SubjectResolver],
+  providers: [AuthService, SubjectResolver, UserResolver, UserSubjectResolver],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
