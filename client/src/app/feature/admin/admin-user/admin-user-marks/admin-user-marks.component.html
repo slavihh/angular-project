@@ -1,36 +1,54 @@
 <section class="mat-typography">
-  <h1 class="mat-display-2">User marks</h1>
-</section>
-<span class="flex-spacer"></span>
-<div fxLayout="row" fxLayoutAlign="end end">
-    <a [routerLink]="['/admin/user/marks/', userEmail, 'create']"><mat-icon>add</mat-icon></a>
-  </div>
-<br/>
-<mat-table class="mat-elevation-z8" class="container">
-  <!-- <ng-container *ngFor="let eachMark of userMarks">
-    <ng-container *ngFor="let subject of userSubjects"> -->
-        <!-- <ng-template #mark>
-            <ng-container matColumnDef="mark">
-                <mat-header-cell *matHeaderCellDef> Mark </mat-header-cell>
-                <mat-cell >
-                  {{eachMark.mark}}
-                </mat-cell>
-              </ng-container>
-              <ng-container matColumnDef="options">
-                  <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
-                  <mat-cell >
-                    delete {{userSubjects}}
-                  </mat-cell>
-                </ng-container>
-        </ng-template> -->
-        <!-- <ng-template #noMark>
-            haha
-        </ng-template> -->
-        <!-- <ng-container *ngIf="(eachMark.Subject.name === subject.name) then mark; else noMark"></ng-container> -->
-    <!-- </ng-container>
-  </ng-container> -->
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
-<br/>
+    <h1 class="mat-display-2">USER MARKS</h1>
+  </section>
+  <span class="flex-spacer"></span>
+  <div fxLayout="row" fxLayoutAlign="end end">
+      <a [routerLink]="['/admin/user/mark/', userEmail, 'create']"><mat-icon>add</mat-icon></a>
+    </div>
+  <br/>
+  <mat-table [dataSource]="userMarksAndSubjects" class="mat-elevation-z8" class="container">
+      <ng-container matColumnDef="subject">
+        <mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.subject}}</mat-cell>
+      </ng-container>
+     
 
+      <ng-container matColumnDef="mark">
+          <mat-header-cell *matHeaderCellDef> Marks </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <div *ngFor="let mark of element.marks" >
+                <ng-template #excellent>
+                  <div class="mark excellent">{{mark}}</div>
+                </ng-template>
+                <ng-template  #otherMarks>
+                  <ng-template #goods>
+                      <ng-template #veryGood>
+                          <div class="mark veryGood">{{mark}}</div>
+                      </ng-template>
+                      <ng-template #good>
+                            <div class="mark good">{{mark}}</div>
+                      </ng-template>
+                      <ng-container *ngIf="mark === 5 then veryGood; else good"></ng-container>
+                  </ng-template>
+                  <ng-template #poors>
+                      <ng-template #poor>
+                          <div class="mark poor">{{mark}}</div>
+                      </ng-template>
+                      <ng-template #veryPoor>
+                            <div class="mark veryPoor">{{mark}}</div>
+                      </ng-template>
+                      <ng-container *ngIf="mark === 3 then poor; else veryPoor"></ng-container>
+                  </ng-template>
+                  <ng-container *ngIf="mark >= 4 then goods; else poors"></ng-container>
+                </ng-template>
+                <ng-container *ngIf="mark === 6 then excellent; else otherMarks"></ng-container>
+            </div>
+            
+          </mat-cell>
+        </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <br/>
+  
+  

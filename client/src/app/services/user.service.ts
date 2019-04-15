@@ -22,8 +22,7 @@ export class UserService {
     };
   }
   delete(email){
-      const req = this.http.delete<{msg: string}>(`${this.API_BASE_URL}/user/delete?email=${email}`, this.httpOptions);
-      return req;
+   return this.http.delete<{msg: string}>(`${this.API_BASE_URL}/user/delete?email=${email}`, this.httpOptions); 
   }
   deleteUserSubject(userEmail, subjectName) {
     return this.deleteReq(`/user/delete/subject?userEmail=${userEmail}&subjectName=${subjectName}`);
@@ -33,6 +32,14 @@ export class UserService {
   }
   getAllUsers() {
     return this.getReq('/user/all');
+  }
+  addUserMark(userEmail,subjectName, mark) {
+    const body = {
+      userEmail, 
+      subjectName,
+      mark
+    }
+    return this.postReq('/user/add/subject/mark', body);
   }
   setUserSubject(email, subjectName) {
       const body = {

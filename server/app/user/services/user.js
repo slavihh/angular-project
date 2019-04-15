@@ -73,27 +73,25 @@ class UserService {
                     email: userEmail
                 }
             });
-            const userSubject = await UserSubject.findOne({
-                where: {
-                    SubjectId: subject.id,
-                    UserId: user.id
-                }
-            })
+           
 
             if (subject === null || user === null) {
                 res.status(HttpStatusCodes.NOT_FOUND).json({
                     msg: "Sorry, User or Subject not found."
                 });
-            } else if (userSubject === null) {
-                res.status(HttpStatusCodes.BAD_REQUEST).json({
-                    msg: "Sorry, User do not have this subject."
-                });
             } else {
-                await UserSubjectMark.create({
-                    UserId: user.id,
-                    SubjectId: subject.id,
-                    mark
+                const userSubject = await UserSubject.findOne({
+                    where: {
+                        SubjectId: subject.id,
+                        UserId: user.id
+                    }
                 })
+                if(userSubject !== null) {
+                await UserSubjectMark.create({
+                        UserId: user.id,
+                        SubjectId: subject.id,
+                        mark
+                    })
                     .then(() => {
                         res.status(HttpStatusCodes.CREATED).json({
                             msg: "Successfully created mark"
@@ -105,6 +103,12 @@ class UserService {
                             msg: 'Sorry, something Went Wrong'
                         });
                     });
+                }
+                else {
+                    res.status(HttpStatusCodes.NOT_FOUND).json({
+                        msg: "Sorry, User do not have this subject."
+                    });
+                }
             }
         } catch (error) {
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -191,7 +195,9 @@ class UserService {
                         id: user.id
                     },
                 }).then(userMark => {
-                
+                    const data = {
+                        userMarks: userMark.UserSubjectMarks
+                    }
                     res.status(HttpStatusCodes.OK).json(userMark.UserSubjectMarks);
                 }).catch(err => {
                     res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -218,45 +224,12 @@ class UserService {
             });
         })
     }
-    //TODO add deleteUserSubject
-    async deleteUserSubject(req, res) {
-        const { userEmail, subjectName } = req.query;
-        const user = await User.findOne({ where: { email: userEmail } });
-        const subject = await Subject.findOne({ where: { name: subjectName } });
-        if (user !== null && subject !== null) {
-            const userSubject = await UserSubject.findOne({ where: { UserId: user.id, SubjectId: subject.id } })
-            if (userSubject === null) {
-                res.status(HttpStatusCodes.NOT_FOUND).json({ msg: 'User do not have this subject, please try again' });
-            }
-            await UserSubjectMark.destroy({
-                where: {
-                    UserId: user.id,
-                    SubjectId: subject.id
-                }
-            }).catch(() => {
-                res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: 'Something went wrong' })
-            })
-            await UserSubject.destroy({
-                where: {
-                    UserId: user.id,
-                    SubjectId: subject.id
-                }
-            }).then(() => {
-                res.status(HttpStatusCodes.OK).json({ msg: 'Successfully deleted user subject' })
-            }).catch(() => {
-                res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: 'Something went wrong' })
-            })
-
-        }
-        else {
-            res.status(HttpStatusCodes.NOT_FOUND).json({ msg: 'User or Subject not found, please try again' });
-        }
-    }
-    async deleteUser(req, res) {
+    
+    async deleteUser(req,res) {
         const token = req.headers.authorization.split('JWT ').pop();
         const decodedToken = jwtDecode(token);
         const { email } = req.query;
-        const admin = await User.findOne({ where: { id: decodedToken.id } })
+        const admin = await User.findOne({ where: { id: decodedToken.id }})
         const user = await User.findOne({ where: { email } })
         if (user !== null) {
             if (admin.email !== email) {
@@ -274,7 +247,7 @@ class UserService {
                 }).catch(() => {
                     res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: 'Something went wrong' })
                 })
-
+    
                 await User.destroy({
                     where: {
                         email
@@ -283,11 +256,11 @@ class UserService {
                     res.status(HttpStatusCodes.OK).json({ msg: 'Successfully deleted user' })
                 }).catch(() => {
                     res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: 'Something went wrong' })
-                })
+                }) 
             }
             else {
                 res.status(HttpStatusCodes.BAD_REQUEST).json({ msg: "You can't delete yourself" })
-            }
+            } 
         }
         else {
             res.status(HttpStatusCodes.NOT_FOUND).json({ msg: 'User not found' });

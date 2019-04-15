@@ -15,8 +15,9 @@ import { UserSubjectResolver } from '../shared/resolvers/user.subject.resolver';
 import { CreateUserSubjectComponent } from './admin/admin-user/admin-user-subjects/create-user-subject/create-user-subject.component';
 import { AdminUserMarksComponent } from './admin/admin-user/admin-user-marks/admin-user-marks.component';
 import { UserMarksResolver } from '../shared/resolvers/user-marks.resolver';
+import { CreateUserMarkComponent } from './admin/admin-user/admin-user-marks/create-user-mark/create-user-mark.component';
 @NgModule({
-  declarations: [AdminUserComponent, AdminSubjectComponent, CreateSubjectComponent, EditSubjectComponent, AdminUserSubjectsComponent, CreateUserSubjectComponent, AdminUserMarksComponent,],
+  declarations: [AdminUserComponent, AdminSubjectComponent, CreateSubjectComponent, EditSubjectComponent, AdminUserSubjectsComponent, CreateUserSubjectComponent, AdminUserMarksComponent, CreateUserMarkComponent,],
   imports: [
     CommonModule,
     SharedModule,
