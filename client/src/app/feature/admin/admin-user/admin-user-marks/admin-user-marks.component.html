@@ -1,0 +1,36 @@
+<section class="mat-typography">
+  <h1 class="mat-display-2">User marks</h1>
+</section>
+<span class="flex-spacer"></span>
+<div fxLayout="row" fxLayoutAlign="end end">
+    <a [routerLink]="['/admin/user/marks/', userEmail, 'create']"><mat-icon>add</mat-icon></a>
+  </div>
+<br/>
+<mat-table class="mat-elevation-z8" class="container">
+  <!-- <ng-container *ngFor="let eachMark of userMarks">
+    <ng-container *ngFor="let subject of userSubjects"> -->
+        <!-- <ng-template #mark>
+            <ng-container matColumnDef="mark">
+                <mat-header-cell *matHeaderCellDef> Mark </mat-header-cell>
+                <mat-cell >
+                  {{eachMark.mark}}
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="options">
+                  <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+                  <mat-cell >
+                    delete {{userSubjects}}
+                  </mat-cell>
+                </ng-container>
+        </ng-template> -->
+        <!-- <ng-template #noMark>
+            haha
+        </ng-template> -->
+        <!-- <ng-container *ngIf="(eachMark.Subject.name === subject.name) then mark; else noMark"></ng-container> -->
+    <!-- </ng-container>
+  </ng-container> -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<br/>
+

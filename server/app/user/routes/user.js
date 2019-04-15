@@ -20,7 +20,10 @@ router.get('/all/marks',authorization.isAuth, authorization.isSameOrAdmin , (req
 router.post('/add/subject', authorization.isAuth, authorization.hasRole , (req,res) => {
     user.addUserSubject(req,res);
 });
-
+//Delete user subject 
+router.delete('/delete/subject', authorization.isAuth, authorization.hasRole, (req, res) =>  {
+    user.deleteUserSubject(req,res);
+})
 // POST mark to User's subject
 router.post('/add/subject/mark',authorization.isAuth, authorization.hasRole, (req,res) => {
     user.addMarkToSubject(req,res)

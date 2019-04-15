@@ -25,6 +25,12 @@ export class UserService {
       const req = this.http.delete<{msg: string}>(`${this.API_BASE_URL}/user/delete?email=${email}`, this.httpOptions);
       return req;
   }
+  deleteUserSubject(userEmail, subjectName) {
+    return this.deleteReq(`/user/delete/subject?userEmail=${userEmail}&subjectName=${subjectName}`);
+  }
+  deleteReq(url) {
+    return this.http.delete<{msg: string}>(`${this.API_BASE_URL}${url}`, this.httpOptions);
+  }
   getAllUsers() {
     return this.getReq('/user/all');
   }
@@ -39,9 +45,12 @@ export class UserService {
     return this.http.get<any>(`${this.API_BASE_URL}${url}`, this.httpOptions);
   }
   postReq(url, body){
-    return this.http.post<{msg: string}>(`${this.API_BASE_URL}${url}`, JSON.stringify(body),this.httpOptions);
+    return this.http.post<{msg: string}>(`${this.API_BASE_URL}${url}`, JSON.stringify(body), this.httpOptions);
   }
   getUserSubjects(email) {
     return this.getReq(`/user/all/subjects?email=${email}`);
+  }
+  getUserMarks(email) {
+    return this.getReq(`/user/all/marks?email=${email}`);
   }
 }
