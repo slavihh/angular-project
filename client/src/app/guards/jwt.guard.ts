@@ -25,7 +25,6 @@ export class JwtGuard implements CanActivate {
       const now = Math.floor(new Date().getTime() / 1000);
       if (this.loggedIn && (now > this.exp || now > this.refExp) ) {
         this.local.clear();
-        location.reload();
         return false;
       }
       return true;

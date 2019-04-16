@@ -1,4 +1,64 @@
+.container {
+    width: 776px;
+    padding: 40px;
+}
 .guest-container {
     width: 700px;
     padding: 40px;
+}
+mat-grid-tile {
+    background: lightblue;
+  }
+  .cardList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  /* Column Gap */
+  .cardList > * {
+    box-sizing: border-box;
+  }
+  .cardList > *:not(:last-child) {
+    margin-right: 32px;
+  }
+  /* Item sizing */
+  .cardListItem {
+    flex: 0 1 calc(33.3% - 32px);
+  }
+  /* medium size viewport */
+  @media screen and (max-width: 959px) {
+    /* Column Gap */
+    .cardList > *:not(:last-child) {
+      margin-right: 32px;
+    }
+    /* Item sizing */
+    .cardListItem {
+      flex: 0 1 calc(50% - 32px);
+    }
+  }
+  /* small size viewport */
+  @media screen and (max-width: 599px) {
+    .cardList {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .cardList > *:not(:last-child) {
+      margin-right: unset;
+      margin-bottom: 32px;
+    }
+  }
+
+.allUsers{
+    background-color: #03a9f4;
+    width: 275px;
+}
+.allSubjects {
+    background-color: #009688;
+    width: 275px;
+}
+.allMarks {
+    width: 275px;
+    background-color: #FF8C00;
 }

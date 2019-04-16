@@ -18,6 +18,7 @@ import { CreateUserSubjectComponent } from './feature/admin/admin-user/admin-use
 import { AdminUserMarksComponent } from './feature/admin/admin-user/admin-user-marks/admin-user-marks.component';
 import { UserMarksResolver } from './shared/resolvers/user-marks.resolver';
 import { CreateUserMarkComponent } from './feature/admin/admin-user/admin-user-marks/create-user-mark/create-user-mark.component';
+import { MarksResolver } from './shared/resolvers/marks.resolver';
 
 // JWT guard works
 const routes: Routes = [

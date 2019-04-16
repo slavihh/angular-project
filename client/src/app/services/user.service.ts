@@ -12,7 +12,7 @@ export class UserService {
   private httpOptions;
   constructor(private http: HttpClient, store: Store<any>) {
     store.select('auth').subscribe(data => {
-      this.authToken = data.authToken;
+      this.authToken = data.authToken ? data.authToken : '';
     });
     this.httpOptions = {
       headers: new HttpHeaders({

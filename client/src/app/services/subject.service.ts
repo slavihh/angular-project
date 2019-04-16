@@ -12,7 +12,7 @@ export class SubjectService {
   public API_BASE_URL = 'http://localhost:4000';
   constructor(public http: HttpClient, public store: Store<any>, private toastr: ToastrService, private router: Router) { 
     this.store.select('auth').subscribe(data => {
-      this.authToken = data.authToken;
+      this.authToken = data.authToken ? data.authToken : '';
     });
    }
 
