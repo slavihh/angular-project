@@ -19,6 +19,7 @@ import { AdminUserMarksComponent } from './feature/admin/admin-user/admin-user-m
 import { UserMarksResolver } from './shared/resolvers/user-marks.resolver';
 import { CreateUserMarkComponent } from './feature/admin/admin-user/admin-user-marks/create-user-mark/create-user-mark.component';
 import { MarksResolver } from './shared/resolvers/marks.resolver';
+import { UserMarksComponent } from './feature/user/user-marks/user-marks.component';
 
 // JWT guard works
 const routes: Routes = [
@@ -38,6 +39,8 @@ const routes: Routes = [
   resolve: { userMarks: UserMarksResolver, userSubjects: UserSubjectResolver}},
   {path: 'admin/user/mark/:email/create', component: CreateUserMarkComponent, canActivate: [RoleGuard, JwtGuard], 
   resolve: { userSubjects: UserSubjectResolver}},
+  {path: 'user/marks', component: UserMarksComponent, canActivate: [JwtGuard], 
+  resolve: {userMarks: UserMarksResolver, userSubjects: UserSubjectResolver}},
   {path: '**', redirectTo: '/'}
 ];
 

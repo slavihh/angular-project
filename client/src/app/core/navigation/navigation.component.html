@@ -28,12 +28,6 @@
       
       <ng-template #logged>
           <div *ngIf="(role | async) === 1">
-              <a  routerLink="user/subjects">
-                <mat-list-item class="parent drawer">
-                  <span class="full-width" *ngIf="isExpanded || isShowing">My subjects</span>
-                  <mat-icon mat-list-icon>school</mat-icon>
-              </mat-list-item>
-              </a>
               <a  routerLink="user/marks">
                 <mat-list-item class="parent drawer">
                   <span class="full-width" *ngIf="isExpanded || isShowing">My marks</span>

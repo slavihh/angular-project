@@ -1,0 +1,50 @@
+<section class="mat-typography">
+  <h1 class="mat-display-2">USER MARKS</h1>
+</section>
+<span class="flex-spacer"></span>
+<br/>
+<mat-table [dataSource]="userMarksAndSubjects" class="mat-elevation-z8" class="container">
+    <ng-container matColumnDef="subject">
+      <mat-header-cell *matHeaderCellDef> Subject </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.subject}}</mat-cell>
+    </ng-container>
+   
+
+    <ng-container matColumnDef="mark">
+        <mat-header-cell *matHeaderCellDef> Marks </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div *ngFor="let mark of element.marks" >
+              <ng-template #excellent>
+                <div class="mark excellent">{{mark}}</div>
+              </ng-template>
+              <ng-template  #otherMarks>
+                <ng-template #goods>
+                    <ng-template #veryGood>
+                        <div class="mark veryGood">{{mark}}</div>
+                    </ng-template>
+                    <ng-template #good>
+                          <div class="mark good">{{mark}}</div>
+                    </ng-template>
+                    <ng-container *ngIf="mark === 5 then veryGood; else good"></ng-container>
+                </ng-template>
+                <ng-template #poors>
+                    <ng-template #poor>
+                        <div class="mark poor">{{mark}}</div>
+                    </ng-template>
+                    <ng-template #veryPoor>
+                          <div class="mark veryPoor">{{mark}}</div>
+                    </ng-template>
+                    <ng-container *ngIf="mark === 3 then poor; else veryPoor"></ng-container>
+                </ng-template>
+                <ng-container *ngIf="mark >= 4 then goods; else poors"></ng-container>
+              </ng-template>
+              <ng-container *ngIf="mark === 6 then excellent; else otherMarks"></ng-container>
+          </div>
+          
+        </mat-cell>
+      </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<br/>
+
