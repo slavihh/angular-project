@@ -15,7 +15,7 @@ if (config.use_env_variable) {
 // Import models
 const userModel = sequelize['import']('../app/user/models/user');
 const tokenBlackList = sequelize['import']('../app/user/models/tokenblacklist');
-const subject = sequelize['import']('../app/user/models/subject');
+const subject = sequelize['import']('../app/subject/models/subject');
 const userSubject = sequelize['import']('../app/user/models/usersubject');
 const userSubjectMark = sequelize['import']('../app/user/models/usersubjectmark');
 

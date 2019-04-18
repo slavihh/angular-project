@@ -31,7 +31,7 @@ const routes: Routes = [
 
   {path: 'register', canActivate: [IsLoggedOutGuard], component: RegisterComponent},
 
-  {path: 'admin/user', component: AdminUserComponent, canActivate: [AuthGuard, JwtGuard, RoleGuard], resolve: { users: UserResolver}},
+  {path: 'admin/user', component: AdminUserComponent, canActivate: [AuthGuard, RoleGuard, JwtGuard], resolve: { users: UserResolver}},
 
   {path: 'admin/user/subjects/:email', component: AdminUserSubjectsComponent, canActivate: [ AuthGuard, JwtGuard, RoleGuard],
   resolve: { userSubjects: UserSubjectResolver}},

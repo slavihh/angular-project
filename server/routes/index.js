@@ -4,8 +4,8 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../docs/user/swagger.json');
 const userRoutes = require('../app/user/routes/user');
 const authRoutes = require('../app/user/routes/authentication');
-const subject = require('../app/user/routes/subject');
-const mark = require('../app/user/routes/marks');
+const subject = require('../app/subject/routes/subject');
+const mark = require('../app/mark/routes/marks');
 
 
 // Use of routes

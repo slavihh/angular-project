@@ -10,17 +10,17 @@ import { Store } from '@ngrx/store';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  private loggedIn: boolean;
+  private authToken: boolean;
   constructor(private router: Router, store: Store<any>) {
     store.select('auth').subscribe((data) => {
-      this.loggedIn = data.loggedIn;
+      this.authToken = data.authToken ? data.authToken : null;
     });
   }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if(!this.loggedIn) {
+    if(!this.authToken) {
       this.router.navigate(['']);
       return false;
     }
