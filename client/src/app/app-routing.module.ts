@@ -20,27 +20,41 @@ import { UserMarksResolver } from './shared/resolvers/user-marks.resolver';
 import { CreateUserMarkComponent } from './feature/admin/admin-user/admin-user-marks/create-user-mark/create-user-mark.component';
 import { MarksResolver } from './shared/resolvers/marks.resolver';
 import { UserMarksComponent } from './feature/user/user-marks/user-marks.component';
+import { IsLoggedOutGuard } from './guards/is-logged-out.guard';
+import { UserGuard } from './guards/user.guard';
 
 // JWT guard works
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full', canActivate: [JwtGuard]},
-  {path: 'login', canActivate: [AuthGuard], component: LoginComponent},
-  {path: 'register', canActivate: [AuthGuard], component: RegisterComponent},
-  {path: 'admin/user', component: AdminUserComponent, canActivate: [RoleGuard], resolve: { users: UserResolver}},
-  {path: 'admin/user/subjects/:email', component: AdminUserSubjectsComponent, canActivate: [ JwtGuard, RoleGuard], 
+
+  {path: 'login', canActivate: [IsLoggedOutGuard], component: LoginComponent},
+
+  {path: 'register', canActivate: [IsLoggedOutGuard], component: RegisterComponent},
+
+  {path: 'admin/user', component: AdminUserComponent, canActivate: [AuthGuard, JwtGuard, RoleGuard], resolve: { users: UserResolver}},
+
+  {path: 'admin/user/subjects/:email', component: AdminUserSubjectsComponent, canActivate: [ AuthGuard, JwtGuard, RoleGuard],
   resolve: { userSubjects: UserSubjectResolver}},
-  {path: 'admin/user/subjects/:email/create', component: CreateUserSubjectComponent, canActivate: [ JwtGuard, RoleGuard], 
+
+  {path: 'admin/user/subjects/:email/create', component: CreateUserSubjectComponent, canActivate: [AuthGuard, JwtGuard, RoleGuard],
   resolve: { subjects: SubjectResolver}},
-  {path: 'admin/subject', component: AdminSubjectComponent, canActivate: [ JwtGuard, RoleGuard], 
+
+  {path: 'admin/subject', component: AdminSubjectComponent, canActivate: [ AuthGuard, JwtGuard, RoleGuard],
   resolve: { subjects: SubjectResolver}},
-  {path: 'admin/subject/create', component: CreateSubjectComponent, canActivate: [ RoleGuard, JwtGuard]},
-  {path: 'admin/subject/edit/:name', component: EditSubjectComponent, canActivate: [RoleGuard, JwtGuard]},
-  {path: 'admin/user/marks/:email', component: AdminUserMarksComponent, canActivate: [RoleGuard, JwtGuard], 
+
+  {path: 'admin/subject/create', component: CreateSubjectComponent, canActivate: [ AuthGuard, RoleGuard, JwtGuard]},
+
+  {path: 'admin/subject/edit/:name', component: EditSubjectComponent, canActivate: [AuthGuard, RoleGuard, JwtGuard]},
+
+  {path: 'admin/user/marks/:email', component: AdminUserMarksComponent, canActivate: [AuthGuard, RoleGuard, JwtGuard],
   resolve: { userMarks: UserMarksResolver, userSubjects: UserSubjectResolver}},
-  {path: 'admin/user/mark/:email/create', component: CreateUserMarkComponent, canActivate: [RoleGuard, JwtGuard], 
+
+  {path: 'admin/user/mark/:email/create', component: CreateUserMarkComponent, canActivate: [AuthGuard, RoleGuard, JwtGuard],
   resolve: { userSubjects: UserSubjectResolver}},
-  {path: 'user/marks', component: UserMarksComponent, canActivate: [JwtGuard], 
+
+  {path: 'user/marks', component: UserMarksComponent, canActivate: [UserGuard, AuthGuard, JwtGuard],
   resolve: {userMarks: UserMarksResolver, userSubjects: UserSubjectResolver}},
+
   {path: '**', redirectTo: '/'}
 ];
 

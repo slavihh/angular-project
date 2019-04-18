@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 @Injectable({
   providedIn: 'root'
 })
-export class RoleGuard implements CanActivate {
+export class UserGuard implements CanActivate {
   private loggedIn: boolean;
   private role: number;
   public authToken: number;
@@ -20,7 +20,7 @@ export class RoleGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if(this.authToken && this.role !== 2) {
+    if(this.authToken && this.role !== 1) {
       this.router.navigate(['/']);
       return false;
     }

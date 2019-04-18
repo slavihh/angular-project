@@ -33,15 +33,16 @@ export class AuthService {
     }
     login(email: string, password: string) {
       this.auth('login', email, password).subscribe(data => {
-        this.router.navigate(['']);
+        this.router.navigateByUrl('/');
         this.toastr.success('Successfully logged')
         this.storeAuthInfo.save(data.authToken, data.user);
       }, err => this.toastr.error(err.error.message, 'Something went wrong'));
     }
     register(email: string, password: string) {
       this.auth('register', email, password).subscribe(data => {
+        this.router.navigateByUrl('/');
         this.storeAuthInfo.save(data.authToken, data.user);
-        this.router.navigate(['']);
-      });
+        this.toastr.success('Successfully registered');
+      }, err => this.toastr.error(err.error.message, 'Something went wrong'));
     }
   }

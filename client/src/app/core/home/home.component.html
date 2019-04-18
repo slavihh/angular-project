@@ -4,34 +4,6 @@
       </mat-card>
 </ng-template>
 <ng-template #logged>
-    <ng-template #admin>
-      <div 
-      fxLayout="row wrap" 
-      fxLayout.lt-sm="column" 
-      fxLayoutGap="32px" 
-      fxLayoutAlign="flex-start">
-        <mat-card fxFlex="0 1 calc(33.3% - 32px)"
-        class="allUsers"
-        fxFlex.lt-md="0 1 calc(50% - 32px)"
-        fxFlex.lt-sm="100%">
-        <h1 class="mat-h1">USERS</h1>
-        <h1 style="text-align: right; " class="mat-h1">{{(allUsers | async).length}}</h1></mat-card>
-        <mat-card fxFlex="0 1 calc(33.3% - 32px)"
-        class="allSubjects"
-        fxFlex.lt-md="0 1 calc(50% - 32px)"
-        fxFlex.lt-sm="100%" >
-        <h1 class="mat-h1">SUBJECTS</h1>
-        <h1 style="text-align: right; " class="mat-h1">{{(allSubjects | async).length}}</h1>
-        </mat-card>
-        <mat-card fxFlex="0 1 calc(33.3% - 32px)"
-        class="allMarks"
-        fxFlex.lt-md="0 1 calc(50% - 32px)"
-        fxFlex.lt-sm="100%">
-        <h1 class="mat-h1">MARKS</h1>
-        <h1 style="text-align: right; " class="mat-h1">{{(allMarks | async).length}}</h1>
-        </mat-card>
-    </div>
-      <br>
       <div 
       fxLayout="row wrap"
       fxLayoutAlign="flex-start">
@@ -39,30 +11,6 @@
           "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains."
       </mat-card>
     </div>
-    </ng-template>
-    <ng-template #user>
-      <div
-      fxLayout="row wrap" 
-      fxLayout.lt-sm="column" 
-      fxLayoutGap="32px" 
-      fxLayoutAlign="flex-start">
-          <mat-card fxFlex="0 1 calc(33.3% - 32px)"
-          class="allSubjects"
-          fxFlex.lt-md="0 1 calc(50% - 32px)"
-          fxFlex.lt-sm="100%" >
-          <h1 class="mat-h1">SUBJECTS</h1>
-          <h1 style="text-align: right; " class="mat-h1">{{allUserSubjects.length}}</h1>
-          </mat-card>
-          <mat-card fxFlex="0 1 calc(33.3% - 32px)"
-          class="allMarks"
-          fxFlex.lt-md="0 1 calc(50% - 32px)"
-          fxFlex.lt-sm="100%">
-          <h1 class="mat-h1">MARKS</h1>
-          <h1 style="text-align: right; " class="mat-h1">{{(allMarks | async).length}}</h1>
-          </mat-card>
-      </div>
-    </ng-template>
-    <ng-container *ngIf="(role | async) === 2 then admin; else user;"></ng-container>
 </ng-template>
 <ng-container *ngIf="(isUserLoggedIn | async) then logged; else notLogged">
 
