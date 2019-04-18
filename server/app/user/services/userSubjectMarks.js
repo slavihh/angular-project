@@ -112,5 +112,6 @@ class UserSubjectMarkService {
             });
         }
     }
+   
 }
 module.exports = new UserSubjectMarkService();
