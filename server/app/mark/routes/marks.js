@@ -3,7 +3,7 @@ const router = express.Router();
 const mark = require('../services/mark');
 const auth = require('../../user/middleware/authorization')
 
-router.get('/all', auth.hasRole, (req,res) => {
+router.get('/', auth.hasRole, (req,res) => {
     mark.getAll(req,res);
 })
 module.exports = router;

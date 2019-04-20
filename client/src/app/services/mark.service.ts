@@ -22,6 +22,6 @@ export class MarkService {
   }
 
   getAllMarks() {
-    return this.http.get(`${this.API_BASE_URL}/mark/all`, this.httpOptions);
+    return this.http.get(`${this.API_BASE_URL}`, this.httpOptions);
   }
 }

@@ -22,14 +22,14 @@ export class SubjectService {
         'Authorization': `JWT ${this.authToken.token}`
       })
     };
-    return this.http.get(`${this.API_BASE_URL}/subject/all`, httpOptions)
+    return this.http.get(`${this.API_BASE_URL}/subject`, httpOptions)
   }
 
   createReq(name: string) {
     const body = {
       name
     };
-    return this.postReq(body, '/subject/create');
+    return this.postReq(body, '/subject');
   }
   editSubject(subjectName: string, newName: string) {
     const body = {
@@ -48,7 +48,7 @@ export class SubjectService {
           'Authorization': `JWT ${this.authToken.token}`,
       })
     };
-    return this.http.delete<{msg: string}>(`${this.API_BASE_URL}/subject/delete?subjectName=${subjectName}`, httpOptions);
+    return this.http.delete<{msg: string}>(`${this.API_BASE_URL}/subject?subjectName=${subjectName}`, httpOptions);
   }
   postReq(body, url): Observable<{msg: string}> {
     const httpOptions = {

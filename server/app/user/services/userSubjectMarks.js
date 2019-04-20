@@ -51,7 +51,7 @@ class UserSubjectMarkService {
             })
         }
     }
-    
+
     async addMarkToSubject(req, res) {
         try {
             const {
@@ -69,7 +69,7 @@ class UserSubjectMarkService {
                     email: userEmail
                 }
             });
-           
+
 
             if (subject === null || user === null) {
                 res.status(HttpStatusCodes.NOT_FOUND).json({
@@ -82,23 +82,23 @@ class UserSubjectMarkService {
                         UserId: user.id
                     }
                 })
-                if(userSubject !== null) {
-                await UserSubjectMark.create({
+                if (userSubject !== null) {
+                    await UserSubjectMark.create({
                         UserId: user.id,
                         SubjectId: subject.id,
                         mark
                     })
-                    .then(() => {
-                        res.status(HttpStatusCodes.CREATED).json({
-                            msg: "Successfully created mark"
+                        .then(() => {
+                            res.status(HttpStatusCodes.CREATED).json({
+                                msg: "Successfully created mark"
+                            });
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
+                                msg: 'Sorry, something Went Wrong'
+                            });
                         });
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({
-                            msg: 'Sorry, something Went Wrong'
-                        });
-                    });
                 }
                 else {
                     res.status(HttpStatusCodes.NOT_FOUND).json({
@@ -112,6 +112,26 @@ class UserSubjectMarkService {
             });
         }
     }
-   
+    async deleteUserMark(req, res) {
+        try {
+            const { markId } = req.query;
+            const mark = await UserSubjectMark.findOne({where: {id: markId}})
+            if(mark) {
+                await UserSubjectMark.destroy({where: {id: mark.id}})
+                .then(() => {
+                    res.status(HttpStatusCodes.OK).json({msg: 'Successfully deleted mark'});
+                })
+                .catch(() => {
+                    res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({msg: 'Something went wrong'});
+                });
+            }
+
+            else {
+                res.status(HttpStatusCodes.NOT_FOUND).json({msg: 'Mark not found'});
+            }
+        } catch (error) {
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({msg: 'Something went wrong'});
+        }
+    }
 }
 module.exports = new UserSubjectMarkService();
