@@ -4,20 +4,17 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class LocalStorage {
-    private storageSub = new Subject();
-    watchStorage(): Observable<any> {
-        return this.storageSub.asObservable();
-      }
+
     saveAuthToken(authToken) {
-        localStorage.setItem('authToken', JSON.stringify(authToken))
-        this.storageSub.next();
+        localStorage.setItem('authToken', JSON.stringify(authToken));
     }
     saveUser(user) {
         localStorage.setItem('user', JSON.stringify(user));
-        this.storageSub.next();
+    }
+    saveRememberMe(rememberMe: boolean) {
+        localStorage.setItem('rememberMe', JSON.stringify(rememberMe));
     }
     clear() {
         localStorage.clear();
-        this.storageSub.next();
     }
 }

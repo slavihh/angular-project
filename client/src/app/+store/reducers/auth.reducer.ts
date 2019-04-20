@@ -1,16 +1,19 @@
+import { IAuth } from 'src/app/models/IAuth';
+
 const user = JSON.parse(localStorage.getItem('user'));
 const authToken = JSON.parse(localStorage.getItem('authToken'));
-const initialState = ((user && authToken)) ? {
+const rememberMe = JSON.parse(localStorage.getItem('rememberMe'));
+const initialState: IAuth = (user && authToken || rememberMe) ? {
     loggedIn: true,
     user,
     authToken,
+    rememberMe,
 } : {
-    loggedIn: false,
-    user: null,
-    authToken: null,
-    rememberMe: null
-};
-
+        loggedIn: false,
+        user: null,
+        authToken: null,
+        rememberMe: null,
+    };
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case '[AUTH] SET_AUTH_TOKEN':
@@ -30,6 +33,11 @@ export const authReducer = (state = initialState, action) => {
                 loggedIn: false,
                 authToken: null,
                 user: null
+            };
+        case '[AUTH] REMEMBER_ME':
+            return {
+                ...state,
+                rememberMe: action.payload
             }
         default:
             return state;

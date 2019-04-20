@@ -16,7 +16,8 @@ export class LoginComponent {
   title = 'app';
   email: string;
   password: string;
+  rememberMe = false;
  public onSubmit() {
-   this.authService.login(this.email, this.password);
+   this.authService.login(this.email, this.password, this.rememberMe);
  }
 }

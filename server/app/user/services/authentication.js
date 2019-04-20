@@ -26,7 +26,6 @@ class Authentication {
             let now = Math.floor(new Date().getTime() / 1000);
             let tokenExp = jwtSecret.token.exp;
             let refreshExp = user.exp ? user.exp - now : jwtSecret.refreshToken.exp;
-
             if (err) {
                 res.status(HttpStatus.INTERNAL_SERVER_ERROR).json( err );
             } else if (info !== undefined) {

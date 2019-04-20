@@ -14,4 +14,7 @@ export class ClearAuth implements Action {
   type = '[AUTH] CLEAR_AUTH';
 }
 
-
+export class RememberMe implements Action {
+  type = '[AUTH] REMEMBER_ME';
+  constructor(public payload) {}
+}
