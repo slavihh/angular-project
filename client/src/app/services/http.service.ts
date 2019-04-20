@@ -22,7 +22,7 @@ export class HttpService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post(`${this.baseUrl}${url}`, JSON.stringify(body), httpOptions);
+    return this.http.post<{msg: string}>(`${this.baseUrl}${url}`, JSON.stringify(body), httpOptions);
   }
   get(url) {
     const httpOptions = {
@@ -41,7 +41,7 @@ export class HttpService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.put(`${this.baseUrl}${url}`, JSON.stringify(body), httpOptions);
+    return this.http.put<{msg: string}>(`${this.baseUrl}${url}`, JSON.stringify(body), httpOptions);
   }
 
   delete(url) {
@@ -51,6 +51,6 @@ export class HttpService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.delete(`${this.baseUrl}${url}`, httpOptions);
+    return this.http.delete<{msg: string}>(`${this.baseUrl}${url}`, httpOptions);
   }
 }

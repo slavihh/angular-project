@@ -17,7 +17,7 @@ export class CreateSubjectComponent implements OnInit {
   ngOnInit() {
   }
   onSubmit() {
-    return this.subjectService.createReq(this.name).subscribe(data => {
+    return this.subjectService.create(this.name).subscribe(data => {
       this.toastr.success(data.msg);
       this.router.navigate(['admin/subject']);
     },

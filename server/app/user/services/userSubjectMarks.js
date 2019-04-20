@@ -27,7 +27,7 @@ class UserSubjectMarkService {
                 await User.findOne({
                     include: {
                         model: UserSubjectMark,
-                        attributes: ['mark'],
+                        attributes: ['mark', 'id'],
                         include: {
                             model: Subject,
                             attributes: ['name']

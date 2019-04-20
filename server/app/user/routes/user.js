@@ -26,6 +26,7 @@ router.post('/mark',authorization.isAuth, authorization.hasRole, userMark.addMar
 // GET User marks
 router.get('/mark',authorization.isAuth, authorization.isSameOrAdmin , userMark.getUserSubjectMarks);
 
+//DELETE USER MARK
 router.delete('/mark', authorization.isAuth, authorization.hasRole, userMark.deleteUserMark)
 
 

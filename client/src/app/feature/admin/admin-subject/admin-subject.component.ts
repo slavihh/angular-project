@@ -19,7 +19,7 @@ export class AdminSubjectComponent  {
   delete(name) {
     this.subjects = this.subjects.filter(s => s.name !== name)
     this.subjectService.delete(name).subscribe(res => {
-      this.toastr.success(res.msg)
+      this.toastr.success(res.msg);
     }, err => {
       this.toastr.error(err.error.msg);
     });

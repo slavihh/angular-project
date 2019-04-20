@@ -16,7 +16,6 @@ import { SubjectResolver } from './shared/resolvers/subject.resolver';
 import { UserResolver } from './shared/resolvers/user.resolver';
 import { UserSubjectResolver } from './shared/resolvers/user.subject.resolver';
 import { UserMarksResolver } from './shared/resolvers/user-marks.resolver';
-import { MarksResolver } from './shared/resolvers/marks.resolver';
 @NgModule({
   imports: [
     BrowserModule,
@@ -30,7 +29,7 @@ import { MarksResolver } from './shared/resolvers/marks.resolver';
     HttpClientModule,
     RouterModule
   ],
-  providers: [AuthService, SubjectResolver, UserResolver, UserSubjectResolver, UserMarksResolver, MarksResolver],
+  providers: [AuthService, SubjectResolver, UserResolver, UserSubjectResolver, UserMarksResolver],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })

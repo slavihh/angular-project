@@ -25,7 +25,7 @@ export class EditSubjectComponent implements OnInit {
     if (this.paramName === this.name) {
       return this.toastr.error('You have to change the name');
     } else {
-      return this.subjectService.editSubject(this.paramName,this.name).subscribe(res => {
+      return this.subjectService.edit(this.paramName,this.name).subscribe(res => {
         this.router.navigate(['admin/subject']);
         this.toastr.success(res.msg);
       },

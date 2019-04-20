@@ -19,21 +19,14 @@ export class AdminUserMarksComponent{
       this.userEmail = params['email'];
     });
     for (const subject of this.userSubjects) {
-      const name = subject.name;
       this.userMarksAndSubjects.push({subject: subject.name, marks: []})
     }
     this.userSubjects.map(eachSubject => {
       this.userMarks.map(eachMark => {
-        const index = this.userMarksAndSubjects;
         const item = this.userMarksAndSubjects.find(i => i.subject === eachSubject.name);
         eachMark.Subject.name === eachSubject.name ?
         item.marks.push(eachMark.mark) : null;
       });
     });
    }
-
-
-  delete(name) {
-
-  }
 }
