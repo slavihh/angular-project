@@ -10,12 +10,12 @@ import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
-import { AuthService } from './services/auth.service';
+import { AuthService } from './core/services/auth.service';
 import { SharedModule } from './shared/shared.module';
-import { SubjectResolver } from './shared/resolvers/subject.resolver';
-import { UserResolver } from './shared/resolvers/user.resolver';
-import { UserSubjectResolver } from './shared/resolvers/user.subject.resolver';
-import { UserMarksResolver } from './shared/resolvers/user-marks.resolver';
+import { SubjectResolver } from './core/services/resolvers/subject.resolver';
+import { UserResolver } from './core/services/resolvers/user.resolver';
+import { UserSubjectResolver } from './core/services/resolvers/user.subject.resolver';
+import { UserMarksResolver } from './core/services/resolvers/user-marks.resolver';
 @NgModule({
   imports: [
     BrowserModule,

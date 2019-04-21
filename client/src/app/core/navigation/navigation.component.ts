@@ -10,10 +10,11 @@ import {
 } from '@angular/material';
 import { Observable, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { ClearAuth } from 'src/app/+store/actions/auth.action';
 import { Router } from '@angular/router';
 import { getIsAuth, getUserRole } from 'src/app/+store';
+import { IState } from 'src/app/core/services/models/IState';
 
 @Component({
   selector: 'app-navigation',
@@ -30,7 +31,7 @@ export class NavigationComponent implements OnInit{
   role;
   loggedIn;
 
-  constructor( private local: LocalStorage, public store: Store<any>,public authService: AuthService, public router: Router) { 
+  constructor( private local: LocalStorage, public store: Store<IState>, public authService: AuthService, public router: Router) { 
   }
   ngOnInit() {
     this.loggedIn = this.store.select(getIsAuth);
@@ -41,7 +42,7 @@ export class NavigationComponent implements OnInit{
   }
 
   logout() {
-    localStorage.clear();
+    this.local.clear();
     this.store.dispatch(new ClearAuth());
     this.router.navigate(['']);
   }

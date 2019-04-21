@@ -2,17 +2,18 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { StoreAuthInfo } from '../services/auth.info.service';
+import { StoreAuthInfo } from './auth.info.service';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
-import { getAuthToken } from '../+store';
+import { getAuthToken } from '../../+store';
+import { IState } from './models/IState';
 
 @Injectable()
 export class AuthService {
     private API_BASE_URL = 'http://localhost:4000'
     private stateAuth;
     private authToken;
-    constructor(public storeAuthInfo: StoreAuthInfo, public router: Router, public http: HttpClient, public store: Store<any>, 
+    constructor(public storeAuthInfo: StoreAuthInfo, public router: Router, public http: HttpClient, public store: Store<IState>, 
                 public toastr: ToastrService) {
       store.select('auth').subscribe(data => {
         this.stateAuth = data;
@@ -32,7 +33,7 @@ export class AuthService {
         })
       };
       const url = `${this.API_BASE_URL}/auth/${type}`;
-      return this.http.post  (url, JSON.stringify(body), httpOptions);
+      return this.http.post(url, JSON.stringify(body), httpOptions);
     }
     login(email: string, password: string, rememberMe) {
       this.auth('login', email, password).subscribe(data => {

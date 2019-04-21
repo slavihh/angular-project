@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate, Router } from '@angular/router';
-import { LocalStorage } from '../core/local-storage';
+import { LocalStorage } from '../../local-storage';
 import { Store } from '@ngrx/store';
-import { AuthService } from '../services/auth.service';
-import { StoreAuthInfo } from '../services/auth.info.service';
-import { ClearAuth } from '../+store/actions/auth.action';
+import { AuthService } from '../auth.service';
+import { StoreAuthInfo } from '../auth.info.service';
+import { ClearAuth } from '../../../+store/actions/auth.action';
+import { IAuth } from '../models/IAuth';
+import { IState } from '../models/IState';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,9 +16,9 @@ export class JwtGuard implements CanActivate {
     private loggedIn: boolean;
     private rememberMe;
     public auth;
-    constructor(public store: Store<any>, private router: Router, private local: LocalStorage, private authService: AuthService, 
+    constructor(public store: Store<IState>, private router: Router, private local: LocalStorage, private authService: AuthService, 
                 private storeAuthInfo: StoreAuthInfo) {
-      store.select('auth').subscribe((data) => {
+      store.select('auth').subscribe((data: IAuth) => {
           this.auth = data;
       });
     }

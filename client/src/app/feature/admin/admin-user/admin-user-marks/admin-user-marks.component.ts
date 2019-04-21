@@ -15,7 +15,7 @@ export class AdminUserMarksComponent{
   constructor(private route: ActivatedRoute) { 
     this.userMarks = route.snapshot.data['userMarks'];
     this.userSubjects = route.snapshot.data['userSubjects'];
-    route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.userEmail = params['email'];
     });
     for (const subject of this.userSubjects) {

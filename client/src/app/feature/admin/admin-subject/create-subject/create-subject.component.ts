@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SubjectService } from 'src/app/services/subject.service';
+import { SubjectService } from 'src/app/core/services/subject.service';
 import { ToastrService } from 'ngx-toastr';
 import { error } from '@angular/compiler/src/util';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ export class CreateSubjectComponent implements OnInit {
   ngOnInit() {
   }
   onSubmit() {
-    return this.subjectService.create(this.name).subscribe(data => {
+    return this.subjectService.create(this.name).subscribe((data: any) => {
       this.toastr.success(data.msg);
       this.router.navigate(['admin/subject']);
     },

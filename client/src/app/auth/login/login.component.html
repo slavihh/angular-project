@@ -18,7 +18,7 @@
       <mat-form-field class="example-full-width">
         <input #passwordSpy matInput name="password" placeholder="Password" type="password" required [(ngModel)]="password" #passwordRef="ngModel"
          minlength="8"  />
-       <mat-icon matSuffix>vpn_key</mat-icon>
+       <mat-icon matSuffix>fingerprint</mat-icon>
         <mat-error *ngIf="!passwordRef.valid && passwordRef?.errors.required">
           Password is <strong>required</strong>
         </mat-error>
@@ -27,6 +27,7 @@
           Minimum 8 Characters required
         </mat-error>
       </mat-form-field>
+      <br>
       <mat-checkbox class="example-margin" [(ngModel)]="rememberMe" name="rememberMe">Remember Me</mat-checkbox>
     <BR />
     <BR />

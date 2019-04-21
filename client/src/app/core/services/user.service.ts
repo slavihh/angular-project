@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { getAuthToken } from '../+store';
 import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private http: HttpService, store: Store<any>) { }
+  constructor(private http: HttpService) { }
   delete(email) {
-    return this.http.delete(`/user/delete?email=${email}`);
+    return this.http.delete(`/user?email=${email}`);
   }
   deleteUserSubject(userEmail, subjectName) {
     return this.http.delete(`/user/subject?userEmail=${userEmail}&subjectName=${subjectName}`);

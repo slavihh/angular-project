@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { SubjectService } from 'src/app/services/subject.service';
+import { SubjectService } from 'src/app/core/services/subject.service';
 
 @Component({
   selector: 'app-edit-subject',
@@ -13,10 +13,10 @@ export class EditSubjectComponent implements OnInit {
   paramName: string;
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
               private toastr: ToastrService, private subjectService: SubjectService) { 
-    activatedRoute.params.subscribe(params => {
+    this.activatedRoute.params.subscribe(params => {
       this.paramName = params['name'];
       this.name = this.paramName;
-    })
+    });
    }
 
   ngOnInit() {
@@ -25,12 +25,12 @@ export class EditSubjectComponent implements OnInit {
     if (this.paramName === this.name) {
       return this.toastr.error('You have to change the name');
     } else {
-      return this.subjectService.edit(this.paramName,this.name).subscribe(res => {
+      return this.subjectService.edit(this.paramName, this.name).subscribe((res: any) => {
         this.router.navigate(['admin/subject']);
         this.toastr.success(res.msg);
       },
       err => {
-        this.toastr.error(err.error.msg)
+        this.toastr.error(err.error.msg);
       }
       );
     }

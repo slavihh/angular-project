@@ -1,4 +1,4 @@
-import { IAuth } from 'src/app/models/IAuth';
+import { IAuth } from 'src/app/core/services/models/IAuth';
 
 const user = JSON.parse(localStorage.getItem('user'));
 const authToken = JSON.parse(localStorage.getItem('authToken'));

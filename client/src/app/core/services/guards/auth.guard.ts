@@ -6,13 +6,15 @@ import {
   RouterStateSnapshot
 } from "@angular/router";
 import { Store } from '@ngrx/store';
+import { IState } from '../models/IState';
+import { IAuth } from '../models/IAuth';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
   private authToken: boolean;
-  constructor(private router: Router, store: Store<any>) {
-    store.select('auth').subscribe((data) => {
+  constructor(private router: Router, store: Store<IState>) {
+    store.select('auth').subscribe((data: IAuth) => {
       this.authToken = data.authToken ? data.authToken : null;
     });
   }

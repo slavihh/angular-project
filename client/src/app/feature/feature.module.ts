@@ -8,13 +8,13 @@ import { CreateSubjectComponent } from './admin/admin-subject/create-subject/cre
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditSubjectComponent } from './admin/admin-subject/edit-subject/edit-subject.component';
-import { SubjectResolver } from '../shared/resolvers/subject.resolver';
-import { UserResolver } from '../shared/resolvers/user.resolver';
+import { SubjectResolver } from '../core/services/resolvers/subject.resolver';
+import { UserResolver } from '../core/services/resolvers/user.resolver';
 import { AdminUserSubjectsComponent } from './admin/admin-user/admin-user-subjects/admin-user-subjects.component';
-import { UserSubjectResolver } from '../shared/resolvers/user.subject.resolver';
+import { UserSubjectResolver } from '../core/services/resolvers/user.subject.resolver';
 import { CreateUserSubjectComponent } from './admin/admin-user/admin-user-subjects/create-user-subject/create-user-subject.component';
 import { AdminUserMarksComponent } from './admin/admin-user/admin-user-marks/admin-user-marks.component';
-import { UserMarksResolver } from '../shared/resolvers/user-marks.resolver';
+import { UserMarksResolver } from '../core/services/resolvers/user-marks.resolver';
 import { CreateUserMarkComponent } from './admin/admin-user/admin-user-marks/create-user-mark/create-user-mark.component';
 import { UserMarksComponent } from './user/user-marks/user-marks.component';
 @NgModule({
